@@ -1,5 +1,7 @@
 # 🍄 蘑菇鼠标助手
 
+**中文** · [English](README.en.md)
+
 **让鼠标带着小蘑菇，往前走、往后退。**
 
 这是一个 **vibe coding 产物**，为《Shroom and Gloom》的全鼠标游玩补上两个悬浮按钮：**前进**和**后退**。小小一块面板，放在顺手的地方就好。
@@ -20,7 +22,7 @@
 
 ## 四步出发
 
-1. **下载并解压**：[前往下载页](https://github.com/miaomiao-tools/miaomiao-tools/releases)，选择 `ShroomMouse-0.1.0-experimental.1-win-x64.zip`，完整解压到自己的文件夹。
+1. **下载并解压**：[前往下载页](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-001-v0.1.0-experimental.1)，选择 `ShroomMouse-0.1.0-experimental.1-win-x64.zip`，完整解压到自己的文件夹。
 2. **选一下游戏**：双击「蘑菇鼠标助手.exe」，首次选择游戏安装目录里的 `Shroom and Gloom.exe`。可以先用 Steam 的「浏览本地文件」找到它。点取消就会退出。
 3. **开始玩**：点击面板「启动游戏」，或自行从 Steam 启动。回到游戏窗口后，按钮就可以使用啦。建议窗口化或无边框模式。
 4. **收工**：点面板右上角 **×**，或右键通知区的绿色双箭头图标，选择「退出助手」。

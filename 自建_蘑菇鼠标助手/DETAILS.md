@@ -1,5 +1,7 @@
 # 使用细节与边界
 
+**中文** · [English](DETAILS.en.md)
+
 ## 设置和恢复
 
 - 布局存于 EXE 旁边的 `controls.ini`；选定的游戏绝对路径存于 `game-path.txt`。目录不可写时可本次使用，但设置可能无法保留。
