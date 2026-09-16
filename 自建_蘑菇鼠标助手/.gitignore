@@ -1,0 +1,12 @@
+bin/
+dist/
+release-files.json
+SHA256SUMS.txt
+controls.ini
+game-path.txt
+test-results.txt
+demo-events.txt
+*.pdb
+*.log
+.vs/
+.codebase-memory/

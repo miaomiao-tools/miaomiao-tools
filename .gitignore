@@ -1,0 +1,10 @@
+# Local-only files never belong in the public collection.
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.user
+*.suo
+*.log
+.env
+.env.*
+!.env.example
