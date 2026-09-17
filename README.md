@@ -6,6 +6,18 @@
 
 用 **vibe coding** 制作的 Windows 小工具合集。小小工具，帮一点小忙 🐾
 
+## 🤖 AI Pulse · AI 连通性小面板
+
+![小机器人帮网络听听心跳](自建_AI-Pulse/assets/ai-pulse-banner.png)
+
+AI 又连不上啦？让小机器人先听听网络的心跳。
+
+检查常见 AI 服务的基础连接，也可以手动查看单个地址的 HTTP 响应。完整面板看细节，迷你面板挂在桌边；用 **vibe coding** 做的小小排查助手。
+
+**[下载 Windows ZIP](https://github.com/miaomiao-tools/miaomiao-tools/releases/download/mm-002-v1.2.0-experimental.1/AIPulse-1.2.0-experimental.1-win-x64.zip)** · **[发布页](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-002-v1.2.0-experimental.1)** · **[看看怎么用](自建_AI-Pulse/README.md)** · **[问题反馈](https://github.com/miaomiao-tools/miaomiao-tools/issues)**
+
+**Windows x64 · 免费 · MIT · 实验版**。程序界面为中文，附中英说明。连接成功不代表账号、模型或 agent 完整可用；不需要 API Key，也不调用付费模型。具体检测范围和使用边界见工具说明。
+
 ## 🍄 蘑菇鼠标助手 · Mushroom Mouse Helper
 
 ![小蘑菇抱着鼠标](assets/shroom-mouse-banner.png)
@@ -38,6 +50,6 @@
 
 每个工具的说明和许可证，都放在自己的小文件夹里。
 
-这是个人兴趣小实验，与游戏官方没有关联。希望这些小玩意能帮上你一点点 ✨
+这是个人兴趣小实验，与所列服务及游戏官方没有关联。希望这些小玩意能帮上你一点点 ✨
 
 [历史版本 .1](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-001-v0.1.0-experimental.1)

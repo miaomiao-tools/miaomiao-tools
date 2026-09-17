@@ -6,6 +6,18 @@ Little ideas, little tools, a little helping paw.
 
 A collection of Windows utilities made with **vibe coding**.
 
+## 🤖 AI Pulse · A little AI connectivity panel
+
+![A small robot listening to the network heartbeat](自建_AI-Pulse/assets/ai-pulse-banner.png)
+
+AI won't connect? Let a little robot check the network heartbeat first.
+
+Check basic connections to common AI services, or manually inspect one address's HTTP response. Use the full dashboard for details or keep the mini panel nearby. A little troubleshooting helper made with **vibe coding**.
+
+**[Windows ZIP](https://github.com/miaomiao-tools/miaomiao-tools/releases/download/mm-002-v1.2.0-experimental.1/AIPulse-1.2.0-experimental.1-win-x64.zip)** · **[Release page](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-002-v1.2.0-experimental.1)** · **[How to use it](自建_AI-Pulse/README.en.md)** · **[Report an issue](https://github.com/miaomiao-tools/miaomiao-tools/issues)**
+
+**Windows x64 · Free · MIT · Experimental**. Chinese app UI with Chinese and English guides. A successful connection does not prove that your account, model, or agent works end to end. No API key or paid model calls are needed; see the guide for scope and limitations.
+
 ## 🍄 Mushroom Mouse Helper · 蘑菇鼠标助手
 
 ![A tiny mushroom hugging a computer mouse](assets/shroom-mouse-banner.png)
@@ -36,6 +48,6 @@ Captured from the real helper training window. This shows the controls, not the 
 
 Each tool has its own instructions and license in its folder.
 
-A little hobby experiment, with no affiliation to the game developers. Hope these tiny tools help you out ✨
+A little hobby experiment, with no affiliation to the listed services or game developers. Hope these tiny tools help you out ✨
 
 [Previous release .1](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-001-v0.1.0-experimental.1)

@@ -1,0 +1,17 @@
+_build/
+_test/
+_package/
+bin/
+obj/
+data/
+reports/
+backup/
+*.log
+*.pdb
+*.tmp
+*.lnk
+*.user
+*.suo
+startup-error.txt
+.env
+.env.*

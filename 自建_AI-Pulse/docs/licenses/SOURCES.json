@@ -1,0 +1,45 @@
+{
+  "SchemaVersion": 1,
+  "RuntimeVersion": "8.0.31",
+  "WindowsDesktopDependencyMap": "https://raw.githubusercontent.com/dotnet/windowsdesktop/337963009d48a3016b50172b451b4e80f78791a7/eng/Version.Details.xml",
+  "Notices": [
+    {
+      "Path": "docs/licenses/dotnet-runtime-LICENSE.txt",
+      "Source": "https://www.nuget.org/packages/microsoft.netcore.app.runtime.win-x64/8.0.31",
+      "Version": "8.0.31",
+      "RepositoryCommit": "1219a42122cf5190c7f512850557e38c422430dc",
+      "PackageMember": "LICENSE.TXT",
+      "SHA256": "d7a68596ab69b06f51ca278a6545148e4269a9381c26d597c13df5d88e08cf5b"
+    },
+    {
+      "Path": "docs/licenses/dotnet-runtime-THIRD-PARTY-NOTICES.txt",
+      "Source": "https://www.nuget.org/packages/microsoft.netcore.app.runtime.win-x64/8.0.31",
+      "Version": "8.0.31",
+      "RepositoryCommit": "1219a42122cf5190c7f512850557e38c422430dc",
+      "PackageMember": "THIRD-PARTY-NOTICES.TXT",
+      "SHA256": "b60b2912da28eaa6518593c9e2efb5334ee062d3c42e80d8fdfa806b3dc52977"
+    },
+    {
+      "Path": "docs/licenses/dotnet-windowsdesktop-LICENSE.txt",
+      "Source": "https://www.nuget.org/packages/microsoft.windowsdesktop.app.runtime.win-x64/8.0.31",
+      "Version": "8.0.31",
+      "RepositoryCommit": "337963009d48a3016b50172b451b4e80f78791a7",
+      "PackageMember": "LICENSE",
+      "SHA256": "a89886665765362eb77e0f8e26602c924520041d1711b2eedc136434fe4d01ab"
+    },
+    {
+      "Path": "docs/licenses/dotnet-wpf-THIRD-PARTY-NOTICES.txt",
+      "Source": "https://raw.githubusercontent.com/dotnet/wpf/27c84022a86fcaa600315f4686cde97874615a24/THIRD-PARTY-NOTICES.TXT",
+      "Version": "8.0.31",
+      "RepositoryCommit": "27c84022a86fcaa600315f4686cde97874615a24",
+      "SHA256": "d23dba2fee20c6b59d8f7088ee9ed372459c952a319b7ca90f3eec370cc76eb9"
+    },
+    {
+      "Path": "docs/licenses/dotnet-winforms-THIRD-PARTY-NOTICES.txt",
+      "Source": "https://raw.githubusercontent.com/dotnet/winforms/f4ddf3475a1269429508fe203cdfc4e21c3599d1/THIRD-PARTY-NOTICES.TXT",
+      "Version": "8.0.31",
+      "RepositoryCommit": "f4ddf3475a1269429508fe203cdfc4e21c3599d1",
+      "SHA256": "d68d386849444fab1012e84beb398aeca4aaa3d50e753e9f218242b3753aa28f"
+    }
+  ]
+}
