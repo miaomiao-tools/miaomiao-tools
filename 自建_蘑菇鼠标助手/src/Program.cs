@@ -53,15 +53,8 @@ namespace ShroomMouse
             bool saved, choseFile = false;
             GameExe = GameLocation.Resolve(file, delegate
             {
-                using (var dialog = new OpenFileDialog())
-                {
-                    dialog.Title = "首次使用：选择 Shroom and Gloom.exe（取消即退出）";
-                    dialog.Filter = "Shroom and Gloom|Shroom and Gloom.exe";
-                    dialog.CheckFileExists = true; dialog.Multiselect = false;
-                    dialog.RestoreDirectory = true;
-                    if (dialog.ShowDialog() != DialogResult.OK) return null;
-                    choseFile = true; return dialog.FileName;
-                }
+                string choice = PickGame("首次使用：选择 Shroom and Gloom.exe（取消即退出）");
+                choseFile = choice != null; return choice;
             }, out saved);
             if (GameExe == null)
             {
@@ -71,6 +64,15 @@ namespace ShroomMouse
             if (!saved)
                 MessageBox.Show("游戏位置仅在本次运行中有效。请将助手解压到可写的文件夹，便于下次记住位置。", "游戏位置未保存");
             return true;
+        }
+        internal static string PickGame(string title)
+        {
+            using (var dialog = new OpenFileDialog())
+            {
+                dialog.Title = title; dialog.Filter = "Shroom and Gloom|Shroom and Gloom.exe";
+                dialog.CheckFileExists = true; dialog.Multiselect = false; dialog.RestoreDirectory = true;
+                return dialog.ShowDialog() == DialogResult.OK ? dialog.FileName : null;
+            }
         }
     }
 
@@ -143,6 +145,52 @@ namespace ShroomMouse
         }
     }
 
+    internal sealed class OverlayLayer
+    {
+        readonly Func<bool> isTopmost, restore;
+        long nextCheck;
+        internal OverlayLayer(Func<bool> readTopmost, Func<bool> restoreTopmost) { isTopmost = readTopmost; restore = restoreTopmost; }
+        internal void Refresh(long now, bool visible, bool suspended, bool force)
+        {
+            if (!visible || suspended) { nextCheck = 0; return; }
+            if (!force && now < nextCheck) return;
+            nextCheck = now + 500;
+            // The WinForms property can remain true after the native style has lost TOPMOST.
+            // A failed OS request is retried at the next check, without activating any window.
+            if (force || !isTopmost()) restore();
+        }
+        internal static bool ShouldShow(bool active, bool editing, bool hadGame, bool hasGameWindow)
+        { return active || editing || (!hadGame && !hasGameWindow); }
+        internal static void Test(Action<bool, string> assert)
+        {
+            bool topmost = false, accept = true; int reads = 0, writes = 0;
+            var layer = new OverlayLayer(delegate { reads++; return topmost; }, delegate { writes++; if (accept) topmost = true; return accept; });
+            layer.Refresh(0, false, false, true);
+            assert(writes == 0 && reads == 0, "Hidden overlay cannot restore its layer or steal visibility");
+            layer.Refresh(1, true, true, true);
+            assert(writes == 0 && reads == 0, "Game selection suspends layer restoration even when forced");
+            layer.Refresh(2, true, false, true);
+            assert(writes == 1 && topmost, "Showing overlay restores native topmost state");
+            layer.Refresh(502, true, false, false);
+            assert(writes == 1 && reads == 1, "Healthy steady overlay avoids repeated native writes");
+            topmost = false; layer.Refresh(1001, true, false, false);
+            assert(writes == 1, "Native state checks are throttled");
+            layer.Refresh(1002, true, false, false);
+            assert(writes == 2 && topmost, "Native topmost loss is repaired despite unchanged managed state");
+            layer.Refresh(1003, true, false, true);
+            assert(writes == 3, "Returning to game restores layer even if topmost flag survived");
+            topmost = false; accept = false; layer.Refresh(1503, true, false, false); layer.Refresh(1504, true, false, false);
+            assert(writes == 4 && !topmost, "Failed native restoration does not cause per-frame write loop");
+            accept = true; layer.Refresh(2003, true, false, false);
+            assert(writes == 5 && topmost, "Failed native restoration is retried on next scheduled check");
+            assert(ShouldShow(false, false, false, false), "Waiting before first game keeps setup visible");
+            assert(!ShouldShow(false, false, false, true), "Recognized background game keeps overlay hidden");
+            assert(ShouldShow(true, false, true, true), "Foreground game displays overlay");
+            assert(!ShouldShow(false, false, true, true) && !ShouldShow(false, false, true, false), "Focus loss and game exit hide an already connected overlay");
+            assert(ShouldShow(false, true, true, false), "Explicit tray edit restores a disconnected panel");
+        }
+    }
+
     internal sealed class Overlay : Form
     {
         readonly TrainingWindow training;
@@ -151,6 +199,7 @@ namespace ShroomMouse
         readonly Stopwatch clock = Stopwatch.StartNew();
         readonly Movement movement;
         readonly Guardian guardian;
+        readonly OverlayLayer layer;
         readonly System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         readonly NotifyIcon tray = new NotifyIcon();
         readonly Dictionary<string, Rectangle> regions = new Dictionary<string, Rectangle>();
@@ -158,7 +207,8 @@ namespace ShroomMouse
         readonly Native.WinEventProc focusProc;
         IntPtr mouseHook, focusHook, gameWindow;
         Process game;
-        bool active, captured, dragging, options, cleaned, editing, hadGame, disposing;
+        bool active, captured, dragging, options, cleaned, editing, hadGame, disposing, selectingGame;
+        int inputEpoch;
         string pressed = "", hovered = "", status = "等待游戏启动";
         Point dragOffset;
         long nextScan, launchAt = -20000;
@@ -181,6 +231,7 @@ namespace ShroomMouse
             BackColor = Background; DoubleBuffered = true;
             AccessibleName = "蘑菇鼠标助手：前进和后退悬浮按钮";
             guardian = new Guardian(); movement = new Movement(guardian.Send);
+            layer = new OverlayLayer(delegate { return Native.IsTopmost(Handle); }, delegate { return Native.RestoreTopmost(Handle); });
             mouseProc = MouseHook; focusProc = ForegroundChanged;
             options = training == null;
             IntPtr handle = Handle;
@@ -194,6 +245,7 @@ namespace ShroomMouse
             var menu = new ContextMenuStrip();
             menu.Items.Add("显示 / 调整按钮", null, delegate { ShowForEditing(); });
             menu.Items.Add("启动 / 返回游戏", null, delegate { LaunchGame(); });
+            menu.Items.Add("重新选择游戏…", null, delegate { ReselectGame(); }).Enabled = training == null;
             menu.Items.Add("重置位置和大小", null, delegate { prefs.Size = 1; prefs.Opacity = 95; Rebuild(); Rectangle a = Screen.PrimaryScreen.WorkingArea; Location = new Point(a.Right - Width - 50, a.Top + (a.Height - Height) / 2); Save(); ShowForEditing(); });
             menu.Items.Add("退出助手", null, delegate { Close(); });
             tray.ContextMenuStrip = menu; tray.MouseClick += delegate(object sender, MouseEventArgs e) { if (e.Button == MouseButtons.Left) ShowForEditing(); }; tray.Visible = true;
@@ -207,7 +259,13 @@ namespace ShroomMouse
         protected override bool ShowWithoutActivation { get { return true; } }
         protected override CreateParams CreateParams
         {
-            get { var p = base.CreateParams; p.ExStyle |= 0x08000000 | 0x00040000; return p; }
+            get
+            {
+                var p = base.CreateParams; p.ExStyle |= 0x08000000 | 0x00040000;
+                // Preserve the desired flag when opacity/DPI changes regenerate native styles.
+                if (TopMost) p.ExStyle |= 0x00000008;
+                return p;
+            }
         }
         protected override void WndProc(ref Message m)
         {
@@ -217,6 +275,7 @@ namespace ShroomMouse
         }
         bool GameIsForeground()
         {
+            if (selectingGame) return false;
             var foreground = Native.GetForegroundWindow();
             return gameWindow != IntPtr.Zero && foreground == gameWindow && Native.IsWindow(gameWindow) && !Native.IsIconic(gameWindow);
         }
@@ -244,6 +303,7 @@ namespace ShroomMouse
         void ForegroundChanged(IntPtr hook, uint evt, IntPtr window, int obj, int child, uint thread, uint time)
         {
             if (disposing) return;
+            if (selectingGame) { movement.Cancel(); return; }
             // A programmatic window activation (including accessibility testing) must not steal game focus.
             if (window == Handle && active && gameWindow != IntPtr.Zero)
             { Native.SetForegroundWindow(gameWindow); return; }
@@ -253,16 +313,20 @@ namespace ShroomMouse
         void UpdateState()
         {
             if (disposing) return;
+            if (selectingGame) { movement.Tick(clock.ElapsedMilliseconds, false, false); return; }
             if (clock.ElapsedMilliseconds >= nextScan) { FindGame(); nextScan = clock.ElapsedMilliseconds + 800; }
             bool nowActive = GameIsForeground();
+            bool becameActive = nowActive && !active;
             if (nowActive) { editing = false; hadGame = true; }
             if (nowActive != active)
             {
                 active = nowActive; movement.Cancel(); pressed = ""; dragging = false;
                 if (active) { options = false; Rebuild(); Native.Rect r; if (Native.GetWindowRect(gameWindow, out r)) ClampTo(new Rectangle(r.L, r.T, r.R-r.L, r.B-r.T)); }
             }
-            bool shouldShow = active || editing || (!hadGame && gameWindow == IntPtr.Zero);
+            bool shouldShow = OverlayLayer.ShouldShow(active, editing, hadGame, gameWindow != IntPtr.Zero);
+            bool becameVisible = shouldShow && !Visible;
             if (Visible != shouldShow) { if (shouldShow) Show(); else Hide(); }
+            layer.Refresh(clock.ElapsedMilliseconds, Visible, selectingGame || disposing, becameActive || becameVisible);
             string nextStatus = movement.Failed ? "按键发送失败，请重启助手" : active ? "已连接 · 按住可持续移动" : gameWindow != IntPtr.Zero ? "切回游戏后可操作" : "等待游戏启动";
             if (nextStatus != status) { status = nextStatus; Invalidate(); }
             Point cursor = PointToClient(Cursor.Position);
@@ -276,32 +340,33 @@ namespace ShroomMouse
         }
         IntPtr MouseHook(int code, IntPtr msg, IntPtr data)
         {
-            if (code < 0 || disposing) return Native.CallNextHookEx(mouseHook, code, msg, data);
+            if (code < 0 || disposing || selectingGame) return Native.CallNextHookEx(mouseHook, code, msg, data);
+            int epoch = inputEpoch;
             var mouse = (Native.MouseData)Marshal.PtrToStructure(data, typeof(Native.MouseData));
             int message = msg.ToInt32(); Point screen = new Point(mouse.Pt.X, mouse.Pt.Y);
             if (message == 0x0201 && Visible && Bounds.Contains(screen) && Native.WindowFromPoint(mouse.Pt) == Handle)
             {
                 captured = true;
                 // Queue native input outside the hook callback; never block the low-level hook.
-                BeginInvoke((Action)delegate { PointerDown(screen); });
+                BeginInvoke((Action)delegate { if (epoch == inputEpoch) PointerDown(screen); });
                 return new IntPtr(1);
             }
             if (message == 0x0202 && captured)
             {
                 captured = false;
-                BeginInvoke((Action)delegate { PointerUp(screen); });
+                BeginInvoke((Action)delegate { if (epoch == inputEpoch) PointerUp(screen); });
                 return new IntPtr(1);
             }
             if (message == 0x0200 && captured)
             {
                 // Mouse moves remain available to the OS. Dragging is updated on our UI queue.
-                if (dragging) BeginInvoke((Action)delegate { if (dragging) Location = new Point(screen.X-dragOffset.X, screen.Y-dragOffset.Y); });
+                if (dragging) BeginInvoke((Action)delegate { if (epoch == inputEpoch && dragging) Location = new Point(screen.X-dragOffset.X, screen.Y-dragOffset.Y); });
             }
             return Native.CallNextHookEx(mouseHook, code, msg, data);
         }
         void PointerDown(Point screen)
         {
-            if (disposing || !Visible) return;
+            if (disposing || selectingGame || !Visible) return;
             string hit = Hit(PointToClient(screen)); pressed = hit;
             if (hit == "forward" || hit == "back")
             {
@@ -313,7 +378,7 @@ namespace ShroomMouse
         }
         void PointerUp(Point screen)
         {
-            if (disposing) return;
+            if (disposing || selectingGame) return;
             bool wasDragging = dragging; dragging = false;
             movement.ReleasePointer(clock.ElapsedMilliseconds);
             string released = Hit(PointToClient(screen)); string action = pressed; pressed = "";
@@ -325,11 +390,13 @@ namespace ShroomMouse
                 if (action == "size") { prefs.Size = (prefs.Size + 1) % 3; Rebuild(); ClampTo(Screen.FromRectangle(Bounds).WorkingArea); Save(); }
                 if (action == "opacity") { prefs.Opacity = prefs.Opacity == 95 ? 85 : prefs.Opacity == 85 ? 75 : prefs.Opacity == 75 ? 100 : 95; Opacity = prefs.Opacity / 100.0; Save(); }
                 if (action == "launch") LaunchGame();
+                if (action == "select") ReselectGame();
             }
             Invalidate();
         }
         void LaunchGame()
         {
+            if (selectingGame) return;
             movement.Cancel(); FindGame();
             if (gameWindow != IntPtr.Zero) { editing = false; Native.SetForegroundWindow(gameWindow); return; }
             if (clock.ElapsedMilliseconds - launchAt < 15000) return;
@@ -340,7 +407,36 @@ namespace ShroomMouse
             }
             catch (Exception e) { MessageBox.Show("请从 Steam 启动游戏。\n" + e.Message, "蘑菇鼠标助手"); }
         }
-        void ShowForEditing() { movement.Cancel(); editing = true; options = true; Rebuild(); Show(); ClampTo(Screen.FromRectangle(Bounds).WorkingArea); Invalidate(); }
+        void ReselectGame()
+        {
+            if (selectingGame || disposing || training != null) return;
+            selectingGame = true; inputEpoch++; captured = false; dragging = false; pressed = ""; active = false;
+            bool wasTopMost = TopMost; TopMost = false;
+            try
+            {
+                string target;
+                var result = GameLocation.Reselect(movement, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "game-path.txt"), Program.GameExe,
+                    delegate { return Program.PickGame("重新选择 Shroom and Gloom.exe（取消保留原游戏）"); }, out target);
+                if (result == SelectionResult.Changed)
+                {
+                    Program.GameExe = target;
+                    if (game != null) { game.Dispose(); game = null; }
+                    gameWindow = IntPtr.Zero; nextScan = 0; hadGame = false; launchAt = -20000;
+                }
+                else if (result == SelectionResult.Invalid)
+                    MessageBox.Show("请选择 Shroom and Gloom.exe。原游戏位置已保留。", "没有更改游戏");
+                else if (result == SelectionResult.SaveFailed)
+                    MessageBox.Show("无法保存新位置，原游戏和配置已保留。请确认助手文件夹可写后重试。", "没有更改游戏");
+                else if (result == SelectionResult.ReleaseFailed)
+                    MessageBox.Show("按键尚未成功释放，暂时不能选择游戏。请松开鼠标，稍后重试。", "已停止切换");
+            }
+            finally
+            {
+                selectingGame = false; inputEpoch++; TopMost = wasTopMost;
+                if (!disposing) { ShowForEditing(); UpdateState(); }
+            }
+        }
+        void ShowForEditing() { movement.Cancel(); editing = true; options = true; Rebuild(); Show(); ClampTo(Screen.FromRectangle(Bounds).WorkingArea); layer.Refresh(clock.ElapsedMilliseconds, Visible, selectingGame || disposing, true); Invalidate(); }
         void Save()
         {
             if (training != null) return;
@@ -358,11 +454,11 @@ namespace ShroomMouse
             labelFont = new Font("Microsoft YaHei UI", S(13), FontStyle.Regular, GraphicsUnit.Pixel);
             smallFont = new Font("Microsoft YaHei UI", S(11), FontStyle.Regular, GraphicsUnit.Pixel);
             actionFont = new Font("Microsoft YaHei UI", S(20), FontStyle.Bold, GraphicsUnit.Pixel);
-            ClientSize = new Size(S(228), S(options ? 364 : 252));
+            ClientSize = new Size(S(228), S(options ? 416 : 252));
             regions.Clear(); regions["drag"] = R(8, 4, 164, 44); regions["close"] = R(180, 4, 44, 44);
             regions["forward"] = R(12, 52, 204, 64); regions["back"] = R(12, 124, 204, 64);
             regions["options"] = R(156, 204, 60, 44);
-            if (options) { regions["size"] = R(12, 252, 98, 44); regions["opacity"] = R(118, 252, 98, 44); regions["launch"] = R(12, 304, 204, 44); }
+            if (options) { regions["size"] = R(12, 252, 98, 44); regions["opacity"] = R(118, 252, 98, 44); regions["launch"] = R(12, 304, 204, 44); regions["select"] = R(12, 356, 204, 44); }
             Opacity = prefs.Opacity / 100.0; Invalidate();
         }
         void ClampTo(Rectangle area)
@@ -407,6 +503,8 @@ namespace ShroomMouse
                 DrawText(g, "大小：" + (prefs.Size == 0 ? "小" : prefs.Size == 2 ? "大" : "中"), regions["size"], labelFont, TextColor, true);
                 DrawText(g, "不透明 " + prefs.Opacity + "%", regions["opacity"], smallFont, TextColor, true);
                 DrawText(g, gameWindow == IntPtr.Zero ? "启动游戏" : "返回游戏", regions["launch"], labelFont, Accent, true);
+                ButtonBackground(g, "select", training == null);
+                DrawText(g, training == null ? "重新选择游戏…" : "测试模式 · 固定测试窗口", regions["select"], smallFont, training == null ? TextColor : Muted, true);
             }
         }
         static Icon CreateIcon()
@@ -492,6 +590,7 @@ namespace ShroomMouse
                 var failedDown = new Movement(delegate { return false; }); assert(!failedDown.Press(0x57, 0, true) && failedDown.Key == 0 && failedDown.Failed, "Failed key down is reported without latching");
                 assert(Marshal.SizeOf(typeof(Native.Input)) == (IntPtr.Size == 8 ? 40 : 28), "Native SendInput ABI size correct");
                 GameLocationTests.Run(assert, Path.GetDirectoryName(Path.GetFullPath(file)));
+                OverlayLayer.Test(assert);
                 report.Add("ALL CHECKS PASSED");
             }
             catch (Exception e) { report.Add("FAIL " + e.Message); Environment.ExitCode = 1; }

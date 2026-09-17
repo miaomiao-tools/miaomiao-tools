@@ -2,45 +2,37 @@
 
 **中文** · [English](README.en.md)
 
-**让鼠标带着小蘑菇，往前走、往后退。**
+用 **vibe coding** 为《Shroom and Gloom》补上鼠标 **前进 / 后退** 按钮。只负责 W / S，其余操作仍由游戏提供。
 
-这是一个 **vibe coding 产物**，为《Shroom and Gloom》的全鼠标游玩补上两个悬浮按钮：**前进**和**后退**。小小一块面板，放在顺手的地方就好。
+![小蘑菇抱着鼠标](assets/shroom-mouse-banner.png)
 
-**实验版 · Windows 10 / 11 64 位 · 免费使用 · MIT 许可**
+**Windows 10 / 11 x64 · .NET Framework 4.8 / 4.8.1 · 免费 · MIT**
 
-## 怎么玩？
+**0.1.0-experimental.3 · 实验版**。面板重新站到游戏前面，游戏搬家后也能重新选择啦。
 
-| 鼠标操作 | 会发生什么 |
-| --- | --- |
-| 点击「前进」 | 短按 W，往前走 |
-| 点击「后退」 | 短按 S，往后退 |
-| 按住任一按钮 | 持续按住对应按键 |
-| 松开或移出按钮 | 停止移动；很短的点击会保留约 0.1 秒 |
-| 切到其他软件 | 释放按键，面板自动隐藏 |
+[下载 Windows ZIP（.3）](https://github.com/miaomiao-tools/miaomiao-tools/releases/download/mm-001-v0.1.0-experimental.3/ShroomMouse-0.1.0-experimental.3-win-x64.zip) · [发布页](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-001-v0.1.0-experimental.3) · [问题反馈](https://github.com/miaomiao-tools/miaomiao-tools/issues)
 
-它只负责 W / S。游戏中其余操作仍用游戏原有的鼠标操作；如果某个画面需要其他键盘按键，助手暂时帮不上忙。连续按住 30 秒会自动松开，抬手再按即可继续。
+## 开始使用
 
-## 四步出发
+1. **完整解压**到自己的文件夹，再双击 `蘑菇鼠标助手.exe`；不要直接在压缩软件中运行。
+2. 首次选择已安装游戏的 `Shroom and Gloom.exe`；可用 Steam「浏览本地文件」找到它。取消即退出。
+3. 启动游戏、切回游戏窗口。点击「前进 / 后退」短按 W / S，按住持续移动。松开或移出按钮停止；切到其他软件也会释放。
+4. 用完点面板 **×**，或通知区绿色双箭头菜单「退出助手」。
 
-1. **下载并解压**：[前往下载页](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-001-v0.1.0-experimental.1)，选择 `ShroomMouse-0.1.0-experimental.1-win-x64.zip`，完整解压到自己的文件夹。
-2. **选一下游戏**：双击「蘑菇鼠标助手.exe」，首次选择游戏安装目录里的 `Shroom and Gloom.exe`。可以先用 Steam 的「浏览本地文件」找到它。点取消就会退出。
-3. **开始玩**：点击面板「启动游戏」，或自行从 Steam 启动。回到游戏窗口后，按钮就可以使用啦。建议窗口化或无边框模式。
-4. **收工**：点面板右上角 **×**，或右键通知区的绿色双箭头图标，选择「退出助手」。
+**升级**：先正常退出旧助手，再把新版完整解压到新文件夹。想保留游戏位置和布局，可将旧文件夹的 `game-path.txt`、`controls.ini` 复制到新文件夹，仅保留在自己电脑上，不要随文件夹一起分享。
 
-拖动面板顶部可以搬家；点「设置」调整大小和透明度。面板找不到时，点击通知区绿色双箭头，或用菜单重置位置。
+拖动顶部移动面板；「设置」调整大小、透明度或 **重新选择游戏…**。选择前会停止移动；取消、选错或保存失败保留原游戏。看不到面板时，用通知区「显示 / 调整按钮」或「重置位置和大小」。
 
-## 小提醒
+![真实助手测试窗口](assets/usage-screenshot.png)
 
-- 需要自行安装 [Shroom and Gloom](https://store.steampowered.com/app/3271280/Shroom_and_Gloom/)。这是独立小工具，与游戏官方无关联，不包含游戏或中文补丁。
-- 目前是实验版：已做离线检查，**这一发布候选还没重测实际游戏操作**。全屏显示、游戏更新或不同电脑环境可能影响效果。
-- 游戏与助手都按普通方式打开即可。运行需要 .NET Framework 4.8 / 4.8.1；缺少时可参考 [Microsoft 安装说明](https://learn.microsoft.com/en-us/dotnet/framework/install/)。
-- 同时只运行一份助手。移动时尽量不要再长按键盘的 W / S。
-- 不改游戏文件和存档，不设置开机启动。退出后删除解压文件夹即可卸载。
+截图是实际运行的助手测试窗口，**不是游戏画面，也不代表游戏实测**。程序界面目前为中文。
 
-更多恢复方法、设置存放位置与已知限制见 [使用细节](DETAILS.md)。程序没有数字签名，可用发布页的 SHA-256 校验下载文件。
+短点击约 0.1 秒；连续按住 30 秒会自动释放，松开重按可继续。实验版，独占全屏和不同环境可能影响显示或输入。需要自行安装游戏；本工具无官方关联，不包含游戏或补丁，不修改游戏文件和存档。
 
----
+当前机器的真实游戏中，已确认面板显示；用户确认前后退及松开、移出按钮后停止正常。其他环境及长时间按住等场景仍待验证。
+
+[使用细节与恢复](docs/USAGE.md) · [MIT 许可](LICENSE) · [来源与第三方说明](docs/NOTICE.md)
 
 由 **miaomiao tools** 制作。小工具，慢慢长大 🌱
 
-[MIT 许可证](LICENSE) · [第三方说明](NOTICE.md) · [更新记录](CHANGELOG.md) · [构建与开发](BUILD.md)
+[历史版本 .1](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-001-v0.1.0-experimental.1)

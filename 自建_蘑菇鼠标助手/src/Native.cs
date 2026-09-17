@@ -25,6 +25,8 @@ namespace ShroomMouse
         [DllImport("user32.dll")] internal static extern IntPtr WindowFromPoint(Point point);
         [DllImport("user32.dll")] internal static extern bool IsWindow(IntPtr hwnd);
         [DllImport("user32.dll")] internal static extern bool IsIconic(IntPtr hwnd);
+        [DllImport("user32.dll", EntryPoint = "GetWindowLongPtrW")] internal static extern IntPtr GetWindowLongPtr(IntPtr hwnd, int index);
+        [DllImport("user32.dll", SetLastError = true)] internal static extern bool SetWindowPos(IntPtr hwnd, IntPtr after, int x, int y, int width, int height, uint flags);
         [DllImport("user32.dll")] internal static extern bool GetWindowRect(IntPtr hwnd, out Rect rect);
         [DllImport("user32.dll")] internal static extern IntPtr SetWindowsHookEx(int type, HookProc callback, IntPtr module, uint thread);
         [DllImport("user32.dll")] internal static extern bool UnhookWindowsHookEx(IntPtr hook);
@@ -36,6 +38,12 @@ namespace ShroomMouse
         [DllImport("user32.dll")] internal static extern bool SetProcessDPIAware();
         [DllImport("user32.dll")] internal static extern uint GetDpiForWindow(IntPtr hwnd);
         [DllImport("user32.dll")] internal static extern bool DestroyIcon(IntPtr icon);
+        internal static bool IsTopmost(IntPtr hwnd) { return (GetWindowLongPtr(hwnd, -20).ToInt64() & 0x8) != 0; }
+        internal static bool RestoreTopmost(IntPtr hwnd)
+        {
+            // Move only our own window in Z order: retain bounds, focus, and owner ordering.
+            return SetWindowPos(hwnd, new IntPtr(-1), 0, 0, 0, 0, 0x0001 | 0x0002 | 0x0010 | 0x0200);
+        }
         internal static bool SendKey(int key, bool down)
         {
             Input i = new Input(); i.Type = 1;

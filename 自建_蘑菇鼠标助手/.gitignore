@@ -6,6 +6,8 @@ controls.ini
 game-path.txt
 test-results.txt
 demo-events.txt
+build-record.json
+game-path.txt.*.tmp
 *.pdb
 *.log
 .vs/

@@ -9,11 +9,12 @@ namespace ShroomMouse
         public int Key { get; private set; }
         public bool PointerHeld { get; private set; }
         public bool Failed { get; private set; }
+        public bool Suspended { get; private set; }
         long started;
         public Movement(Func<int, bool, bool> sender) { send = sender; }
         public bool Press(int key, long now, bool allowed)
         {
-            if (!allowed || (key != 0x57 && key != 0x53)) return false;
+            if (Suspended || !allowed || (key != 0x57 && key != 0x53)) return false;
             Cancel();
             if (Key != 0) return false;
             Failed = false;
@@ -29,8 +30,10 @@ namespace ShroomMouse
         public void Tick(long now, bool allowed, bool inside)
         {
             if (Key == 0) return;
-            if (!allowed || !inside || now - started >= 30000 || (!PointerHeld && now - started >= 100)) Cancel();
+            if (Suspended || !allowed || !inside || now - started >= 30000 || (!PointerHeld && now - started >= 100)) Cancel();
         }
+        public void Suspend() { Suspended = true; Cancel(); }
+        public void Resume() { Suspended = false; }
         public void Cancel()
         {
             PointerHeld = false;

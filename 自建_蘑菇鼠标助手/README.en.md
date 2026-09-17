@@ -2,47 +2,37 @@
 
 [中文](README.md) · **English**
 
-**A tiny mushroom, a mouse, and two ways to wander.**
+A **vibe-coded** pair of **forward / backward** mouse buttons for **Shroom and Gloom**. It only adds W / S; use the game’s own controls for everything else.
 
-This is a **vibe coding project** for **Shroom and Gloom**. It adds two floating mouse buttons — **forward** and **backward** — to help with mouse-only play. Park the little panel wherever it feels comfy.
+![A tiny mushroom hugging a mouse](assets/shroom-mouse-banner.png)
 
-**Experimental · Windows 10 / 11, 64-bit · Free · MIT license**
+**Windows 10 / 11 x64 · .NET Framework 4.8 / 4.8.1 · Free · MIT**
 
-The current app interface is in Chinese. This guide includes the labels you will see; the executable is named `蘑菇鼠标助手.exe`.
+**0.1.0-experimental.3 · Experimental.** The panel is back above the game, and it can find your game again after a move.
 
-## What does it do?
+[Windows ZIP (.3)](https://github.com/miaomiao-tools/miaomiao-tools/releases/download/mm-001-v0.1.0-experimental.3/ShroomMouse-0.1.0-experimental.3-win-x64.zip) · [Release page](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-001-v0.1.0-experimental.3) · [Report an issue](https://github.com/miaomiao-tools/miaomiao-tools/issues)
 
-| Mouse action | What happens |
-| --- | --- |
-| Click forward — 前进 | A short W press moves you forward |
-| Click backward — 后退 | A short S press moves you backward |
-| Hold either button | Keeps the corresponding key held |
-| Release or move off the button | Stops movement; very short clicks last about 0.1 seconds |
-| Switch to another app | Releases the key and hides the panel |
+## Quick start
 
-It only handles **W / S**. Keep using the game's own mouse controls for everything else. If a screen needs another keyboard key, the helper cannot replace it. A continuous hold is released after 30 seconds; release the mouse button and press again to continue.
+1. **Extract the whole ZIP** to your own folder, then open `蘑菇鼠标助手.exe`. Do not run it directly inside an archive viewer.
+2. On first launch, select your installed `Shroom and Gloom.exe`; Steam’s **Browse local files** can help. Cancelling exits.
+3. Start the game and return to its window. Click **前进** (Forward) / **后退** (Backward) for a short W / S press, or hold to keep moving. Releasing, moving off the button, or switching apps releases the key.
+4. Click the panel’s **×**, or choose **退出助手** (Exit helper) from the green double-arrow tray menu.
 
-## Four little steps
+**Upgrading:** exit the old helper normally, then extract the complete new ZIP to a new folder. To keep your selected game and layout, copy `game-path.txt` and `controls.ini` from the old folder to the new one. Keep these personal files on your own computer; do not share them with the folder.
 
-1. **Download and extract:** open the [release page](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-001-v0.1.0-experimental.1), download `ShroomMouse-0.1.0-experimental.1-win-x64.zip`, and extract the whole archive into a folder of your choice.
-2. **Pick your game:** open `蘑菇鼠标助手.exe`. On first launch, select `Shroom and Gloom.exe` from your installed game folder. Steam's **Browse local files** option can help you find it. Cancelling closes the helper.
-3. **Go exploring:** click **启动游戏** (Launch game), or start the game from Steam yourself. Return to the game window to use the buttons. Windowed or borderless mode is recommended.
-4. **All done:** click **×** at the top right of the panel, or right-click the green double-arrow icon in the notification area and select **退出助手** (Exit helper).
+Drag the top to move the panel. **设置** (Settings) changes size and opacity or opens **重新选择游戏…** (Reselect game). Movement stops before selection; cancellation, an invalid file or failed save preserves your previous game. If the panel is missing, use **显示 / 调整按钮** (Show / adjust) or **重置位置和大小** (Reset position and size) in the tray menu.
 
-Drag the panel's top area to move it. **设置** means Settings; it adjusts size and opacity. If the panel goes missing, click the green double-arrow tray icon or use **重置位置和大小** (Reset position and size).
+![The real helper training window](assets/usage-screenshot.png)
 
-## A few small notes
+Captured from the running helper’s training window: **not the game or proof of gameplay testing**. The app interface is currently Chinese.
 
-- You need your own installation of [Shroom and Gloom](https://store.steampowered.com/app/3271280/Shroom_and_Gloom/). This independent helper is not affiliated with the game developers and includes no game files or translation patch.
-- This is an experiment. Offline checks passed, but **this release candidate has not been retested in the actual game**. Fullscreen mode, game updates, and different computers may affect it.
-- Run the game and helper normally, without elevation. It needs .NET Framework 4.8 / 4.8.1; see [Microsoft's installation guide](https://learn.microsoft.com/en-us/dotnet/framework/install/) if it is missing.
-- Run only one copy of the helper. Avoid holding physical W / S keys at the same time.
-- It does not change game files or saves, or start automatically with Windows. To uninstall, exit the helper and delete its extracted folder.
+A short click lasts about 0.1 seconds. Continuous holds stop after 30 seconds; release and press again to continue. Experimental: exclusive fullscreen and different environments may affect display or input. You need your own game. This unofficial helper includes no game or patch and does not modify game files or saves.
 
-See [usage details](DETAILS.en.md) for settings, recovery, and known limits. The executable is unsigned; use the SHA-256 checksums on the release page to verify your download.
+In the current real game, panel display was confirmed; the user confirmed forward/backward movement and stopping on release or moving off the button. Other environments and long holds remain unverified.
 
----
+[Usage and recovery](docs/USAGE.en.md) · [MIT license](LICENSE) · [Origins and notices](docs/NOTICE.md)
 
 Made by **miaomiao tools**. Little tools, growing slowly 🌱
 
-[MIT license](LICENSE) · [Third-party notices](NOTICE.en.md) · [Changelog](CHANGELOG.en.md) · [Building from source](BUILD.en.md)
+[Previous release .1](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-001-v0.1.0-experimental.1)
