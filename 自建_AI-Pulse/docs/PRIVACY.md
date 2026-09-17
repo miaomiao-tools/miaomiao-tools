@@ -1,13 +1,9 @@
-# 隐私与本地数据
+# 小工具搬新家啦 🐾 / We have moved
 
-[English](PRIVACY.en.md) · [首页](../README.md)
+[打开这份说明 / Open this guide](https://github.com/miaomiao-tools/ai-pulse/blob/main/docs/PRIVACY.md)
 
-AI Pulse 不要求登录，不读取浏览器 Cookie、API Key 或 agent 账号，也不发送模型生成请求。应用自身没有遥测、广告或云端同步功能。
+[独立项目 / Project](https://github.com/miaomiao-tools/ai-pulse) · [下载 / Downloads](https://github.com/miaomiao-tools/ai-pulse/releases) · [反馈 / Issues](https://github.com/miaomiao-tools/ai-pulse/issues)
 
-点击检测或主动开启自动巡检后，程序会按所选线路解析并连接内置 / 自定义服务。轻量检测止于传输层；手动 HTTP 检查发送一个无认证请求。DNS 服务、目标服务器和使用中的代理仍可能看到连接来源及目标域名，这不是匿名服务。
+这里保留旧链接入口。工具后续更新在独立仓库进行，旧版下载仍然有效。
 
-网络概览读取本机网卡和网关信息；检测记录包括时间、地址、所选模式、阶段耗时、状态、连接 IP、响应说明与冷却期限。历史最多保留 240 轮。设置、自定义地址、历史、冷却与窗口偏好保存到本地 EXE 旁的 `data` 文件夹。程序目录不可写时，公开版改用 `%LOCALAPPDATA%\MiaomiaoTools\AIPulse` 并显示提示；显式指定的诊断目录失败则停止，不回退到个人数据目录。
-
-启动异常可能在程序旁留下 `startup-error.txt`。手动导出的 CSV / JSON，以及自己运行的诊断报告，可能包含地址、IP、路径等环境信息。它们不会自动上传；分享前请检查并遮去个人信息。
-
-公开便携包和源码包不含任何人的设置、历史、冷却、诊断日志或账号。运行时产生的数据属于你。清空历史不会清除冷却；迁移和升级请保留整个 `data` 文件夹，详见[使用说明](USAGE.md)。
+This page keeps old links working. Future updates live in the independent repository; existing release downloads remain available.

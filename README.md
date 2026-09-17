@@ -4,52 +4,30 @@
 
 把小小的脑洞，变成可以点一点的小工具。
 
-用 **vibe coding** 制作的 Windows 小工具合集。小小工具，帮一点小忙 🐾
+用 **vibe coding** 制作的 Windows 小工具。每个工具都有自己的小窝，点进去看说明、下载和反馈～
 
-## 🤖 AI Pulse · AI 连通性小面板
+## 🤖 AI Pulse
 
-![小机器人帮网络听听心跳](自建_AI-Pulse/assets/ai-pulse-banner.png)
+![小机器人帮网络听听心跳](assets/ai-pulse-banner.png)
 
-AI 又连不上啦？让小机器人先听听网络的心跳。
+AI 又连不上啦？先听听网络的心跳。完整面板看连接细节，迷你面板挂在桌边。
 
-检查常见 AI 服务的基础连接，也可以手动查看单个地址的 HTTP 响应。完整面板看细节，迷你面板挂在桌边；用 **vibe coding** 做的小小排查助手。
+**[打开项目](https://github.com/miaomiao-tools/ai-pulse)** · **[下载 Windows ZIP](https://github.com/miaomiao-tools/ai-pulse/releases/download/mm-002-v1.2.0-experimental.1/AIPulse-1.2.0-experimental.1-win-x64.zip)** · **[问题反馈](https://github.com/miaomiao-tools/ai-pulse/issues)**
 
-**[下载 Windows ZIP](https://github.com/miaomiao-tools/miaomiao-tools/releases/download/mm-002-v1.2.0-experimental.1/AIPulse-1.2.0-experimental.1-win-x64.zip)** · **[发布页](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-002-v1.2.0-experimental.1)** · **[看看怎么用](自建_AI-Pulse/README.md)** · **[问题反馈](https://github.com/miaomiao-tools/miaomiao-tools/issues)**
-
-**Windows x64 · 免费 · MIT · 实验版**。程序界面为中文，附中英说明。连接成功不代表账号、模型或 agent 完整可用；不需要 API Key，也不调用付费模型。具体检测范围和使用边界见工具说明。
+Windows x64 · 中文界面／中英说明 · MIT · 实验版。不需要 API Key；连接成功不代表账号、模型或 agent 完整可用。
 
 ## 🍄 蘑菇鼠标助手 · Mushroom Mouse Helper
 
 ![小蘑菇抱着鼠标](assets/shroom-mouse-banner.png)
 
-一个用 **vibe coding** 做出来的《Shroom and Gloom》小助手。
+给《Shroom and Gloom》的前进、后退补上鼠标按钮，让全鼠标逛蘑菇地牢更顺手。点一点，出发啦～
 
-给前进、后退补上鼠标按钮，让全鼠标逛蘑菇地牢更顺手。点一点，出发啦～它只补 W / S；其他需要键盘的画面暂时帮不上忙。
+**[打开项目](https://github.com/miaomiao-tools/shroom-mouse-helper)** · **[下载 Windows ZIP](https://github.com/miaomiao-tools/shroom-mouse-helper/releases/download/mm-001-v0.1.0-experimental.3/ShroomMouse-0.1.0-experimental.3-win-x64.zip)** · **[问题反馈](https://github.com/miaomiao-tools/shroom-mouse-helper/issues)**
 
-*Forward / backward mouse controls for Shroom and Gloom.*
-
-**Windows · 免费 · 实验版**
-
-**[下载 Windows ZIP（.3）](https://github.com/miaomiao-tools/miaomiao-tools/releases/download/mm-001-v0.1.0-experimental.3/ShroomMouse-0.1.0-experimental.3-win-x64.zip)** · **[发布页](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-001-v0.1.0-experimental.3)** · **[问题反馈](https://github.com/miaomiao-tools/miaomiao-tools/issues)**
-
-**[看看怎么用](自建_蘑菇鼠标助手/README.md)** · **[English guide](自建_蘑菇鼠标助手/README.en.md)**
-
-**0.1.0-experimental.3 · 实验版**：修复游戏覆盖面板的问题，加入“重新选择游戏…”入口，压缩包也更清爽。程序界面目前为中文。
-
-当前机器的真实游戏中，已确认面板显示；用户确认前后退及松开、移出按钮后停止正常。其他环境及长时间按住等场景仍待验证。
-
-升级时先正常退出旧助手，再完整解压新版。个人设置按使用说明保留，不要分享。
-
-下载后解压，打开小助手，第一次选一下游戏程序，就可以准备出发了。具体操作和使用边界见上面的「看看怎么用」。
-
-![蘑菇鼠标助手的真实测试窗口](自建_蘑菇鼠标助手/assets/usage-screenshot.png)
-
-画面来自真实助手测试窗口，用来展示按钮操作；不是游戏画面，也不代表游戏内实测。
+Windows · 中文界面／中英说明 · MIT · 实验版。它只补 W / S，其他需要键盘的画面暂时帮不上忙。
 
 ---
 
-每个工具的说明和许可证，都放在自己的小文件夹里。
+这里是工具导航，源码、后续版本和反馈都在各自的独立项目里。旧说明入口和[历史下载](https://github.com/miaomiao-tools/miaomiao-tools/releases)继续保留。
 
-这是个人兴趣小实验，与所列服务及游戏官方没有关联。希望这些小玩意能帮上你一点点 ✨
-
-[历史版本 .1](https://github.com/miaomiao-tools/miaomiao-tools/releases/tag/mm-001-v0.1.0-experimental.1)
+每个工具的使用说明和许可证在自己的小窝里。这是个人兴趣小实验，与所列服务及游戏官方没有关联。希望这些小玩意能帮上你一点点 ✨

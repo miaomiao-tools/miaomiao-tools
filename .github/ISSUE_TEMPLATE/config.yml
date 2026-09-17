@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "🤖 AI Pulse · 问题反馈 / Report an issue"
+    url: https://github.com/miaomiao-tools/ai-pulse/issues/new/choose
+    about: "AI 连通性小面板的问题请到这里 / For the AI connectivity dashboard."
+  - name: "🍄 蘑菇鼠标助手 · 问题反馈 / Report an issue"
+    url: https://github.com/miaomiao-tools/shroom-mouse-helper/issues/new/choose
+    about: "Shroom and Gloom 鼠标助手的问题请到这里 / For Mushroom Mouse Helper."

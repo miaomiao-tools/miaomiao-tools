@@ -1,15 +1,9 @@
-# Changelog
+# 小工具搬新家啦 🐾 / We have moved
 
-[中文](CHANGELOG.md) · [Home](../README.en.md)
+[打开这份说明 / Open this guide](https://github.com/miaomiao-tools/ai-pulse/blob/main/docs/CHANGELOG.en.md)
 
-## 1.2.0-experimental.1 — 2026-09-17
+[独立项目 / Project](https://github.com/miaomiao-tools/ai-pulse) · [下载 / Downloads](https://github.com/miaomiao-tools/ai-pulse/releases) · [反馈 / Issues](https://github.com/miaomiao-tools/ai-pulse/issues)
 
-First public experimental release, prepared from the existing 1.2.0 feature set: full connectivity dashboard, resizable and pinnable mini panel, history, trends, exports, light transport checks, and manual single-service HTTP checks.
+这里保留旧链接入口。工具后续更新在独立仓库进行，旧版下载仍然有效。
 
-- Preserves durable per-host cooldowns, failure backoff, certificate validation, and global single-instance behavior.
-- Uses a separate fallback data directory and public-window activation identity to avoid reading older fallback data or activating an older app window.
-- Stops immediately if an explicit diagnostic data directory is unwritable, without falling back to personal storage.
-- Disables the old automatically networked `--smoke` entry point while retaining local mock checks.
-- Adds Chinese and English documentation, standalone build scripts, explicit package manifests, MIT licensing, and upstream .NET notices.
-
-The UI remains Chinese. This release checks transport and manual HTTP responses, not account or model functionality.
+This page keeps old links working. Future updates live in the independent repository; existing release downloads remain available.

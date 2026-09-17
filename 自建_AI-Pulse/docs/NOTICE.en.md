@@ -1,18 +1,9 @@
-# Licenses and third-party components
+# 小工具搬新家啦 🐾 / We have moved
 
-[中文](NOTICE.md) · [Home](../README.en.md)
+[打开这份说明 / Open this guide](https://github.com/miaomiao-tools/ai-pulse/blob/main/docs/NOTICE.en.md)
 
-Original AI Pulse code, its app icon, and the bundled illustration are [MIT licensed](../LICENSE), copyright 2026 miaomiao tools. See [asset provenance](../assets/SOURCES.md). Service names identify test targets and do not imply affiliation or endorsement.
+[独立项目 / Project](https://github.com/miaomiao-tools/ai-pulse) · [下载 / Downloads](https://github.com/miaomiao-tools/ai-pulse/releases) · [反馈 / Issues](https://github.com/miaomiao-tools/ai-pulse/issues)
 
-The portable EXE bundles the Microsoft .NET 8.0.31 Windows x64 runtime and desktop components. The app declares no additional NuGet `PackageReference`. Self-contained distribution still requires the upstream licenses and notices, in addition to this project's MIT license:
+这里保留旧链接入口。工具后续更新在独立仓库进行，旧版下载仍然有效。
 
-| Component | Included upstream text |
-| --- | --- |
-| .NET Runtime and app host | [MIT LICENSE](licenses/dotnet-runtime-LICENSE.txt), [complete third-party notices](licenses/dotnet-runtime-THIRD-PARTY-NOTICES.txt) |
-| Windows Desktop Runtime | [LICENSE](licenses/dotnet-windowsdesktop-LICENSE.txt) |
-| Matching WPF revision | [Complete third-party notices](licenses/dotnet-wpf-THIRD-PARTY-NOTICES.txt) |
-| Matching Windows Forms revision | [Complete third-party notices](licenses/dotnet-winforms-THIRD-PARTY-NOTICES.txt) |
-
-License texts come directly from official packages. WPF and Windows Forms notices are pinned to the commits in the Windows Desktop 8.0.31 dependency map. [licenses/SOURCES.json](licenses/SOURCES.json) records source URLs, commits, and SHA-256 hashes. Complete upstream notices may cover a broader upstream repository; retaining them does not assert that this app uses every referenced feature or test asset.
-
-The UI uses installed Windows fonts: Segoe UI, Microsoft YaHei UI, and Segoe MDL2 Assets. No font files are redistributed. Third-party components keep their respective licenses. No code-signing certificate is supplied with this release.
+This page keeps old links working. Future updates live in the independent repository; existing release downloads remain available.

@@ -1,15 +1,9 @@
-# 更新记录
+# 小工具搬新家啦 🐾 / We have moved
 
-[English](CHANGELOG.en.md) · [首页](../README.md)
+[打开这份说明 / Open this guide](https://github.com/miaomiao-tools/ai-pulse/blob/main/docs/CHANGELOG.md)
 
-## 1.2.0-experimental.1 — 2026-09-17
+[独立项目 / Project](https://github.com/miaomiao-tools/ai-pulse) · [下载 / Downloads](https://github.com/miaomiao-tools/ai-pulse/releases) · [反馈 / Issues](https://github.com/miaomiao-tools/ai-pulse/issues)
 
-首次公开实验版，基于已有的 1.2.0 功能整理：完整连通性面板、可置顶缩放的副屏迷你面板、历史趋势、导出、轻量检测与手动单项 HTTP 检查。
+这里保留旧链接入口。工具后续更新在独立仓库进行，旧版下载仍然有效。
 
-- 保留按域名持久冷却、失败退避、证书验证和全局单实例。
-- 公开版使用独立的后备数据目录及窗口激活标识，避免误读旧版后备数据或激活旧版窗口。
-- 显式测试数据目录不可写时立即停止，避免诊断意外回退到个人目录。
-- 禁用旧的自动联网诊断入口 `--smoke`，保留本机模拟检查。
-- 补齐中英文使用说明、独立构建脚本、文件清单、MIT 与 .NET 上游通知。
-
-界面仍为中文。此版本只检测连接与手动 HTTP 响应，不承诺账号或模型实际可用。
+This page keeps old links working. Future updates live in the independent repository; existing release downloads remain available.
