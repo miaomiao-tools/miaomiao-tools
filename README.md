@@ -4,7 +4,7 @@
 
 把小小的脑洞，变成可以点一点的小工具。
 
-用 **vibe coding** 制作的 Windows 小工具。每个工具都有自己的小窝，点进去看说明、下载和反馈～
+用 **vibe coding** 制作的 Windows 小工具与兼容指南。每个项目都有自己的小窝，点进去看说明、下载和反馈～
 
 ## 🤖 AI Pulse
 
@@ -25,6 +25,14 @@ Windows x64 · 中文界面／中英说明 · MIT · 实验版。不需要 API K
 **[打开项目](https://github.com/miaomiao-tools/shroom-mouse-helper)** · **[下载 Windows ZIP](https://github.com/miaomiao-tools/shroom-mouse-helper/releases/download/mm-001-v0.1.0-experimental.3/ShroomMouse-0.1.0-experimental.3-win-x64.zip)** · **[问题反馈](https://github.com/miaomiao-tools/shroom-mouse-helper/issues)**
 
 Windows · 中文界面／中英说明 · MIT · 实验版。它只补 W / S，其他需要键盘的画面暂时帮不上忙。
+
+## 🐧 Hermes × 经典 QQ · 文字消息兼容指南
+
+给经典 QQ 递张小纸条：让 Hermes 用普通文字回复，另附一个私聊去引用的小补丁。
+
+**[打开指南](https://github.com/miaomiao-tools/qq-legacy-hermes-compat)** · **[问题反馈](https://github.com/miaomiao-tools/qq-legacy-hermes-compat/issues)**
+
+中英双语 · 配置示例＋可选源码补丁，无需下载新的 Windows 程序。实测经典 QQ 9.7.23.29368 的官方机器人私聊；其他版本、媒体和群聊尚未验证。不是 QQ 客户端补丁。
 
 ---
 

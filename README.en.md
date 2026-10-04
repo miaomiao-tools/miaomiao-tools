@@ -4,7 +4,7 @@
 
 Little ideas, little tools, a little helping paw.
 
-Windows utilities made with **vibe coding**. Each tool has its own little home for guides, downloads, and feedback.
+Windows utilities and compatibility guides made with **vibe coding**. Each project has its own little home for guides, downloads, and feedback.
 
 ## 🤖 AI Pulse
 
@@ -25,6 +25,14 @@ Mouse buttons for forward and backward movement in **Shroom and Gloom**. A littl
 **[Open project](https://github.com/miaomiao-tools/shroom-mouse-helper)** · **[Windows ZIP](https://github.com/miaomiao-tools/shroom-mouse-helper/releases/download/mm-001-v0.1.0-experimental.3/ShroomMouse-0.1.0-experimental.3-win-x64.zip)** · **[Report an issue](https://github.com/miaomiao-tools/shroom-mouse-helper/issues)**
 
 Windows · Chinese UI / bilingual guides · MIT · Experimental. It adds W / S controls only; screens requiring other keys still need a keyboard.
+
+## 🐧 Hermes × Classic QQ · Plain-text Compatibility Guide
+
+A little note for classic QQ: let Hermes reply in plain text, with an optional tiny patch to remove automatic quote cards in private chats.
+
+**[Open guide](https://github.com/miaomiao-tools/qq-legacy-hermes-compat)** · **[Report an issue](https://github.com/miaomiao-tools/qq-legacy-hermes-compat/issues)**
+
+Bilingual guide · Configuration example + optional source patch. No new Windows app to download. Tested with classic QQ 9.7.23.29368 in an official bot's private chat; other versions, media, and group chats remain unverified. This is not a QQ client patch.
 
 ---
 
